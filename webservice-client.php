@@ -33,7 +33,7 @@
 
 <?php 
 	include('menu.php');
-	showMenu(5); // See Menu.php to check the menu number
+	showMenu(3); // See Menu.php to check the menu number
 ?>
 
     <div class="container">

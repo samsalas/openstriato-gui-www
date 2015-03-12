@@ -152,7 +152,7 @@
 
 <?php	
 	include('menu.php');
-	showMenu(6);
+	showMenu(4);
 	if (isset($display_network)) {
 		echo $display_network;
 	}

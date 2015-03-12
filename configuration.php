@@ -1,6 +1,15 @@
 <?php 
 // DOWNLOAD
-$config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");	
+$config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");
+if($_POST['action'] == 'update') {
+	if(isset($config)) {
+		foreach ($config->action as $action) {
+			$tmp = $action['uid'];
+			$action = $_POST[$tmp];
+		}
+	}
+}
+$config->asXML("/home/pi/openstriato/openstriato.xml");
 ?>
 
 <!DOCTYPE html>
@@ -38,11 +47,11 @@ $config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");
 
 <?php 
 	include('menu.php');
-	showMenu(2); // See Menu.php to check the menu number
+	showMenu(1); // See Menu.php to check the menu number
 ?>
 
     <div class="container">
-
+	<form id="updatexml" action="configuration.php" method="post">
 	<table class="table">
         <thead>
             <tr>
@@ -51,6 +60,7 @@ $config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");
             </tr>
         </thead>
         <tbody>
+	
 <?php // SHOW IMAGE / NAME / DOWNLOAD
 	if (isset($config)) {
 		foreach ($config->action as $action) {
@@ -59,16 +69,19 @@ $config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");
 			echo $action["uid"];
 			echo "</td>\n";
 			echo "<td>";
-			echo $action;
+			echo "<input class=\"input-xxlarge\" type=\"text\" name=\"".$action["uid"]."\" value=\"$action\" />";
 			echo "</td>\n";
 			echo "</tr>\n";
 		}
 	}
 ?>
+
         </tbody>
     </table>
 		
-     
+	<input type="hidden" name="action" value="update" />
+	<button id="validateReboot" type="submit" class="btn btn-primary">Update</button>
+	</form>     
     </div> <!-- /container -->
 	
     <script src="js/jquery.js"></script>
