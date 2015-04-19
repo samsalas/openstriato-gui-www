@@ -5,7 +5,7 @@
     <title>OPENSTRIATO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Samuel Salas">
 
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
@@ -39,22 +39,28 @@
 	 <?php 
 
 	// VIDEO
-	if (isset($_POST['VIDEO_VALUE'])) {
+	if (isset($_POST['VIDEO'])) {
 		//$cmd = "/usr/bin/sudo /usr/bin/python /home/pi/openstriato/openstriato.py -d 8D73F44C";
-		$cmd = "/usr/bin/sudo /usr/bin/omxplayer -o hdmi /home/pi/video/".$_POST['VIDEO_VALUE'];
+		$cmd = "/usr/bin/sudo /usr/bin/omxplayer -o hdmi /home/pi/video/ouioui.mp4";
 		echo "Action($handle): $cmd";
 		$handle = popen($cmd, "r");
 	}
 	// MUSIC
-	if (isset($_POST['MUSIC_VALUE'])) {
-		$cmd = "/usr/bin/sudo /usr/bin/omxplayer -o hdmi /home/pi/music/".$_POST['MUSIC_VALUE'];	
+	if (isset($_POST['MUSIC'])) {
+		$cmd = "/usr/bin/sudo /usr/bin/omxplayer -o hdmi /home/pi/music/example.mp3";	
+		echo "Action($handle): $cmd";
+		$handle = popen($cmd, "r");
+	}
+	// IMAGE
+	if (isset($_POST['IMAGE'])) {
+		$cmd = "/usr/bin/sudo /usr/bin/fim -a /home/pi/images/openstriato.jpg";	
 		echo "Action($handle): $cmd";
 		$handle = popen($cmd, "r");
 	}
 	// REBOOT
 	if (isset($_POST['REBOOT'])) {
 		if ($_POST['REBOOT']=='OK') {
-			$cmd = "/usr/ni/sudo reboot";
+			$cmd = "/usr/bin/sudo reboot";
 			$handle = popen($cmd, "r");
 		}
 	}
@@ -74,26 +80,13 @@
 	
 	<table>
 		<tr>
-			<td><h3>Video</h3></td>
+			<td><h3>Test</h3></td>
 			<td>
 			<table>
 				<tr>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "VIDEO_VALUE" VALUE = "ouioui.mp4"></td>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "VIDEO_VALUE" VALUE = "comtines.mp4"></td>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "VIDEO_VALUE" VALUE = "peppa.mp4"></td>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "VIDEO_VALUE" VALUE = "caterpillar.mp4"></td>
-				</tr>
-			</table>
-			</td>
-		</tr>
-		<tr>
-			<td><h3>Music</h3></td>
-			<td>
-			<table>
-				<tr>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "MUSIC_VALUE" VALUE = "example.mp3"></td>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "MUSIC_VALUE" VALUE = "getlucky.mp3"></td>
-				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "MUSIC_VALUE" VALUE = "happy.mp3"></td>
+				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "VIDEO" VALUE = "VIDEO"></td>
+				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "MUSIC" VALUE = "MUSIC"></td>
+				<td><INPUT TYPE = "Submit" class="btn btn-primary" Name = "IMAGE" VALUE = "IMAGE"></td>
 				</tr>
 			</table>
 			</td>

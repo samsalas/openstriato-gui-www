@@ -1,15 +1,21 @@
 <?php 
 // DOWNLOAD
 $config = simplexml_load_file("/home/pi/openstriato/openstriato.xml");
+$values = array();
 if($_POST['action'] == 'update') {
 	if(isset($config)) {
-		foreach ($config->action as $action) {
-			$tmp = $action['uid'];
-			$action = $_POST[$tmp];
+		foreach ($config->action as $id => $action) {
+			$uidtmp = $action['uid'];
+			$actiontmp = $_POST["$uidtmp"];
+			if ($action != $actiontmp) {
+				$cmd = "/usr/bin/sudo /usr/bin/python2.7 /home/pi/openstriato/openstriato.py -m \"$actiontmp\" -u $uidtmp";
+				$handle = popen($cmd, "r");
+				array_push($values, fgets($handle));
+				$config->action[$id] = $actiontmp;
+			}
 		}
 	}
 }
-$config->asXML("/home/pi/openstriato/openstriato.xml");
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +25,7 @@ $config->asXML("/home/pi/openstriato/openstriato.xml");
     <title>OPENSTRIATO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Samuel Salas">
 
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -49,9 +55,31 @@ $config->asXML("/home/pi/openstriato/openstriato.xml");
 	include('menu.php');
 	showMenu(1); // See Menu.php to check the menu number
 ?>
-
+	
     <div class="container">
-	<form id="updatexml" action="configuration.php" method="post">
+
+<?php
+	if (count($values) > 0) {
+		$displayformupdate = "none";
+		$displayformrefresh = "block";
+		echo "<div class=\"alert alert-success\">\n
+			Modifications uploaded successfully <br />\n
+			<ul>\n";
+		foreach($values as $value){
+			echo "<li />$value\n";
+		}
+		echo "</ul>\n
+			</div>\n";
+	} else {
+		$displayformupdate = "block";
+		$displayformrefresh = "none";
+	}
+?>
+
+
+<?php 
+	echo "<form id=\"updatexml\" action=\"configuration.php\" method=\"post\" style=\"display: $displayformupdate\">"
+?>
 	<table class="table">
         <thead>
             <tr>
@@ -81,11 +109,17 @@ $config->asXML("/home/pi/openstriato/openstriato.xml");
 		
 	<input type="hidden" name="action" value="update" />
 	<button id="validateReboot" type="submit" class="btn btn-primary">Update</button>
-	</form>     
+	</form> 
+<?php 
+	echo "<form id=\"refreshxml\" action=\"configuration.php\" method=\"post\" style=\"display: $displayformrefresh\">"
+?>
+	<input type="hidden" name="action" value="refresh" />
+	<button id="validateReboot" type="submit" class="btn btn-primary">OK</button>
+	</form> 
     </div> <!-- /container -->
 	
     <script src="js/jquery.js"></script>
-	<script src="js/jquery.form.js"></script>
+    <script src="js/jquery.form.js"></script>
     <script src="js/bootstrap.js"></script>
 
   </body>

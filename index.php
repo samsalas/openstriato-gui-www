@@ -5,7 +5,7 @@
     <title>OPENSTRIATO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Samuel Salas">
 
     <link href="css/bootstrap.css" rel="stylesheet">
     <style>
@@ -35,8 +35,7 @@
 ?>
 
     <div class="container">
-
-     
+	Visit us at <a href="http://openstriato.weebly.com">http://openstriato.weebly.com</a>
     </div> <!-- /container -->
 
     <!-- Le javascript

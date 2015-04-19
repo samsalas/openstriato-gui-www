@@ -5,8 +5,9 @@ function showMenu($activeMenu) {
 						"1" => array("Name" => "Configuration", "URL" => "configuration.php"),
 						"2" => array("Name" => "Commands", "URL" => "commands.php"),
 						"3" => array("Name" => "Controls", "URL" => "webservice-client.php"),
-						"4" => array("Name" => "Network", "URL" => "network.php")
-				);	
+						"4" => array("Name" => "Network", "URL" => "network.php"),
+						"5" => array("Name" => "Upload", "URL" => "fileupload.php")
+				);
 				
 	echo '<div class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
