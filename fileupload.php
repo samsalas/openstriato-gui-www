@@ -2,34 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>OPENSTRIATO</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Samuel Salas">
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Fav and touch icons -->
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<style>
+	body {
+	padding-top: 60px;       }
+	</style>
   </head>
 
   <body>
+    <div class="container">
 
 <?php 
 	include('menu.php');
 	showMenu(5); // See Menu.php to check the menu number
 ?>
 
-    <div class="container">
 		<h3>Upload a file to the webserver</h3>
 		Upload the file in the webserver
 <?php
@@ -102,9 +100,12 @@ if ($_POST['action'] == 'youtube') {
 			<button id="uploadButton" type="submit" class="btn btn-primary">Upload youtube video</button>
 		</form>
     </div>
-    <script src="js/jquery.js"></script>
-	<script src="js/jquery.form.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
   </body>
 </html>

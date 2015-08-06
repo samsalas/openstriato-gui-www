@@ -9,31 +9,34 @@ function showMenu($activeMenu) {
 						"5" => array("Name" => "Upload", "URL" => "fileupload.php")
 				);
 				
-	echo '<div class="navbar navbar-inverse navbar-fixed-top">
-		  <div class="navbar-inner">
-			<div class="container">
-			  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </a>
-			  <a class="brand" href="#">OPENSTRIATO</a>
-			  <div class="nav-collapse collapse">
-				<ul class="nav">';
-				$i = 0;
-				foreach ($menuToShow as $v) {			
-						if ($activeMenu==$i) {
-							echo '<li class="active">';
-						} else {
-							echo '<li>';
-						}
-						echo "<a href=".$v["URL"].">".$v["Name"]."</a>";
-						$i++;
-				}
-	echo 		'</ul>
-			  </div>
-			</div>
-		  </div>
-		</div>';
+	echo '<!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Bootstrap theme</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">';
+		$i = 0;
+		foreach ($menuToShow as $v) {			
+			if ($activeMenu==$i) {
+				echo '<li class="active">';
+			} else {
+				echo '<li>';
+			}
+			echo "<a href=".$v["URL"].">".$v["Name"]."</a>";
+			$i++;
+		}
+	echo 		'          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>';
+				
 }
 ?>
