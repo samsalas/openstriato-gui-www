@@ -6,12 +6,27 @@ if($_POST['action'] == 'update') {
 	if(isset($config)) {
 		foreach ($config->action as $id => $action) {
 			$uidtmp = $action['uid'];
-			$actiontmp = $_POST["$uidtmp"];
+			if ($_POST["note$uidtmp"] == "") {
+				$notetmp = "no note";
+			} else {
+				$notetmp = $_POST["note$uidtmp"];
+			}
+			if ($_POST["$uidtmp"] == "") {
+				$actiontmp = "no action";
+			} else {
+				$actiontmp = $_POST["$uidtmp"];
+			}
 			if ($action != $actiontmp) {
 				$cmd = "/usr/bin/sudo /usr/bin/python2.7 /home/pi/openstriato/openstriato.py -m \"$actiontmp\" -u $uidtmp";
 				$handle = popen($cmd, "r");
 				array_push($values, fgets($handle));
 				$config->action[$id] = $actiontmp;
+			} 
+			if ($action['note'] != $notetmp) {
+				$cmd = "/usr/bin/sudo /usr/bin/python2.7 /home/pi/openstriato/openstriato.py -n \"$notetmp\" -u $uidtmp";
+				$handle = popen($cmd, "r");
+				array_push($values, fgets($handle));
+				$config->action[$id]['note'] = $notetmp;
 			}
 		}
 	}
@@ -76,6 +91,7 @@ if($_POST['action'] == 'update') {
         <thead>
             <tr>
                 <th>UID</th>
+		<th>NOTE</th>
                 <th>ACTION</th>
             </tr>
         </thead>
@@ -89,7 +105,16 @@ if($_POST['action'] == 'update') {
 			echo $action["uid"];
 			echo "</td>\n";
 			echo "<td>";
-			echo "<input class=\"input-xxlarge\" type=\"text\" name=\"".$action["uid"]."\" value=\"$action\" />";
+			echo "<div class=\"input-group\">";
+			echo "<span class=\"input-group-addon\" id=\"basic-addon\">#</span>";
+			echo "<input class=\"form-control\" placeholder=\"Note\" aria-describedby=\"basic-addon1\" name=\"note".$action["uid"]."\" value=\"".$action["note"]."\" />";
+			echo "</div>";	
+			echo "</td>\n";
+			echo "<td>";
+			echo "<div class=\"input-group\">";
+			echo "<span class=\"input-group-addon\" id=\"basic-addon\">@</span>";
+			echo "<input class=\"form-control\" placeholder=\"Action\" aria-describedby=\"basic-addon1\" name=\"".$action["uid"]."\" value=\"$action\" />";
+			echo "</div>";		
 			echo "</td>\n";
 			echo "</tr>\n";
 		}
